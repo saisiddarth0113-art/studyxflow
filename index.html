@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -258,8 +258,9 @@ footer{
 
 #splashImg{
   width:100%;
-  height:100vh;
+  height:100%;
   object-fit:cover;
+  display:block;
 }
 
 /* FADE */
@@ -576,6 +577,33 @@ Built with ❤️ by Sai
 
 </footer>
 
+<!-- FIREBASE -->
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+<script>
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCV4Dh59Z7a787_6K9wyFQEkpwpYzJELhk",
+  authDomain: "studyxflow.firebaseapp.com",
+  projectId: "studyxflow",
+  storageBucket: "studyxflow.firebasestorage.app",
+  messagingSenderId: "694556908965",
+  appId: "1:694556908965:web:d5b4e955f04d899a9adc4c",
+  measurementId: "G-R9KKQTXP9Q"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+</script>
+
 <script>
 
 /* MENU */
@@ -627,10 +655,29 @@ function sendOTP(){
 
 function gmailLogin(){
 
-  alert("Firebase Gmail Login add cheyyali 🔥");
+  const provider =
+  new firebase.auth.GoogleAuthProvider();
 
-  document.getElementById("registerScreen")
-  .style.display="none";
+  auth.signInWithPopup(provider)
+
+  .then((result)=>{
+
+    alert(
+      "Welcome " +
+      result.user.displayName
+    );
+
+    document.getElementById(
+      "registerScreen"
+    ).style.display="none";
+
+  })
+
+  .catch((error)=>{
+
+    alert(error.message);
+
+  });
 
 }
 
