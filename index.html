@@ -283,7 +283,7 @@ footer{
 #registerScreen{
   position:fixed;
   width:100%;
-  height:100vh;
+  min-height:100vh;
   background:#050816;
   display:flex;
   justify-content:center;
@@ -376,7 +376,7 @@ footer{
 </style>
 
 <link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.css"/>
+href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/25.3.0/css/intlTelInput.css"/>
 
 </head>
 
@@ -401,71 +401,126 @@ href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelI
     <p>
       Learn • Practice • Succeed 🚀
     </p>
-
+    
     <button onclick="openRegister()">
-      Get Started
-    </button>
+      Create Account
+      </button>
 
   </div>
 
 </div>
 
-<!-- REGISTER SCREEN -->
+
+<!-- AUTH SCREEN -->
 
 <div id="registerScreen" style="display:none;">
 
   <div class="welcomeCard">
 
-    <h2>Create Account</h2>
+    <h2 id="formTitle">Create Account</h2>
 
-  <div class="formGroup">
+    <!-- CREATE ACCOUNT FIELDS -->
     
-    <label>👤 Username</label>
-    
-    <input
-    id="username"
-    placeholder="Enter Username">
-    
-    </div>
-    
-    <div class="formGroup">
-      
-      <label>🎂 Date Of Birth</label>
-      
-      <input
-      id="dob"
-      type="date">
-        
-        
+
+    <div id="createFields">
+
+      <div class="formGroup">
+        <label>👤 Username</label>
+        <input id="username" placeholder="Enter Username">
+      </div>
+
+      <div class="formGroup">
+        <label>🎂 Date Of Birth</label>
+        <input
+          id="dob"
+          type="date"
+          max="2015-12-31">
       </div>
       
       <div class="formGroup">
-        
-        <label>📱 Phone Number</label>
-        
-        <input
-        id="phone"
-        type="tel"
-        placeholder="Enter Phone Number">
-        
-        </div>
+        <label>📧 Email</label>
+        <input id="email" type="email" placeholder="Enter Email">
+      </div>
+      
+      
+    </div>
+    
+    <div class="formGroup" id="loginInputBox" style="display:none;">
+      
+      <label>👤 Username or Email</label>
+      <input id="loginInput" placeholder="Enter Username or Email">
+      
+    </div>
 
-    <button onclick="sendOTP()">
-      Send OTP
+    <!-- LOGIN + PASSWORD -->
+
+    <div class="formGroup">
+
+      <label>🔒 Password</label>
+
+      <input
+        id="password"
+        type="password"
+        placeholder="Enter Password">
+
+    </div>
+
+    <!-- SHOW PASSWORD -->
+
+    <div style="margin-top:10px;text-align:left;">
+
+      <input
+        type="checkbox"
+        id="showPass"
+        onclick="togglePassword()"
+        style="width:auto;">
+
+      <label for="showPass">
+        Show Password
+      </label>
+
+    </div>
+
+    <br>
+
+    <!-- CREATE BUTTON -->
+
+    <button
+      id="createBtn"
+      onclick="registerUser()">
+
+      Create Account
+
+    </button>
+
+    <!-- LOGIN BUTTON -->
+
+    <button
+      id="loginBtn"
+      onclick="loginUser()"
+      style="display:none;">
+
+      Login
+
     </button>
 
     <br><br>
 
-    <button onclick="gmailLogin()">
-      Continue with Gmail
-    </button>
+    <!-- SWITCH -->
+    
+    <p id="switchText"
+    style="cursor:pointer;color:#00c6ff;"
+    onclick="switchMode()">
+      
+      Already have account? Login
+      
+    </p>
 
   </div>
 
 </div>
 
-<div id="recaptcha-container"
-style="margin-top:15px;"></div>
+
 
 <!-- MENU -->
 
@@ -690,128 +745,317 @@ function openRegister(){
   document.getElementById("registerScreen")
   .style.display="flex";
 
+
 }
 
-/* OTP */
 
-function setupRecaptcha(){
+let isLogin = false;
 
-window.recaptchaVerifier =
-new firebase.auth.RecaptchaVerifier(
-'recaptcha-container',
-{
-  size:'normal',
-  callback:function(response){
-    console.log("Recaptcha solved");
-  },
-  'expired-callback':function(){
-    alert("Recaptcha expired");
+function switchMode(){
+
+  isLogin = !isLogin;
+
+  if(isLogin){
+
+    document.getElementById("formTitle").innerText = "Login";
+
+    document.getElementById("createFields").style.display = "none";
+    document.getElementById("createBtn").style.display = "none";
+
+    document.getElementById("loginBtn").style.display = "block";
+    document.getElementById("loginInputBox").style.display = "block";
+
+    // 👉 text change
+    document.getElementById("switchText").innerText =
+      "Don't have account? Create one";
+
+  } else {
+
+    document.getElementById("formTitle").innerText = "Create Account";
+
+    document.getElementById("createFields").style.display = "block";
+    document.getElementById("createBtn").style.display = "block";
+
+    document.getElementById("loginBtn").style.display = "none";
+    document.getElementById("loginInputBox").style.display = "none";
+
+    // 👉 text change
+    document.getElementById("switchText").innerText =
+      "Already have account? Login";
   }
 }
-);
 
-window.recaptchaVerifier.render();
 
-}
+function registerUser(){
 
-function sendOTP(){
+  let username =
+  document.getElementById("username").value;
 
-  let phone =
-  iti.getNumber();
+  let dob =
+  document.getElementById("dob").value;
 
-  if(phone==""){
-    alert("Enter phone number");
+  let email =
+  document.getElementById("email").value;
+
+  let password =
+  document.getElementById("password").value;
+
+  let selectedDate =
+  new Date(dob);
+
+  let today =
+  new Date();
+
+  /* DOB CHECK */
+
+  if(selectedDate > today){
+
+    alert("Invalid Date Of Birth ❌");
     return;
+
   }
 
-  firebase.auth().signInWithPhoneNumber(
-    phone,
-    window.recaptchaVerifier
-  )
+  /* PASSWORD CHECK */
 
-  .then(function(confirmationResult){
+  if(password.length < 6){
 
-    window.confirmationResult =
-    confirmationResult;
+    alert(
+      "Password must be 6+ characters ❌"
+    );
 
-    let code =
-    prompt("Enter OTP");
+    return;
 
-    confirmationResult.confirm(code)
+  }
 
-    .then(function(result){
+  /* USERNAME CHECK */
 
-      alert(
-        "Login Success 🔥"
-      );
-      
-      localStorage.setItem(
-        "studyxflowUser",
-        "logged"
-);
+  db.collection("users")
+  .where("username", "==", username)
+  .get()
 
-      document.getElementById(
-        "registerScreen"
-      ).style.display="none";
+  .then((querySnapshot)=>{
+
+    if(!querySnapshot.empty){
+
+      alert("Username already taken ❌");
+      return;
+
+    }
+
+    /* CREATE ACCOUNT */
+
+    auth.createUserWithEmailAndPassword(
+      email,
+      password
+    )
+
+    .then((userCredential)=>{
+
+      let user = userCredential.user;
+
+      db.collection("users")
+      .doc(user.uid)
+      .set({
+
+        username: username,
+        email: email
+
+      })
+
+      .then(()=>{
+
+        alert("Account Created 🔥");
+
+        localStorage.setItem(
+          "studyxflowUser",
+          "logged"
+        );
+
+        document.getElementById(
+          "registerScreen"
+        ).style.display="none";
+
+      });
 
     })
 
-    .catch(function(error){
+    .catch((error)=>{
 
-      alert("Wrong OTP ❌");
+      alert(error.message);
 
     });
 
-  })
+  });
 
-  .catch(function(error){
+}
 
-    alert(error.message);
+
+function loginUser(){
+
+  let loginValue = document.getElementById("loginInput").value;
+  let password = document.getElementById("password").value;
+
+  if(loginValue.trim() === "" || password.trim() === ""){
+    alert("Enter username/email and password ❌");
+    return;
+  }
+
+  let query;
+
+  // check if email or username
+  if(loginValue.includes("@")){
+
+    query = db.collection("users")
+    .where("email", "==", loginValue)
+    .get();
+
+  } else {
+
+    query = db.collection("users")
+    .where("username", "==", loginValue)
+    .get();
+
+  }
+
+  query.then((querySnapshot)=>{
+
+    if(querySnapshot.empty){
+      alert("User not found ❌");
+      return;
+    }
+
+    let userData = querySnapshot.docs[0].data();
+    let email = userData.email;
+
+    auth.signInWithEmailAndPassword(email, password)
+
+    .then(()=>{
+
+      alert("Login Success 🔥");
+
+      localStorage.setItem("studyxflowUser", "logged");
+
+      document.getElementById("registerScreen").style.display="none";
+
+    })
+
+    .catch((error)=>{
+      alert(error.message);
+    });
 
   });
 
 }
 
-/* GMAIL LOGIN */
+function togglePassword(){
 
-function gmailLogin(){
+  let passwordInput =
+  document.getElementById("password");
 
-  const provider =
-  new firebase.auth.GoogleAuthProvider();
+  if(passwordInput.type === "password"){
 
-  auth.signInWithRedirect(provider)
+    passwordInput.type = "text";
 
-  .then((result)=>{
+  }
 
-    alert(
-      "Welcome " +
-      result.user.displayName
-    );
-    
-    localStorage.setItem(
-  "studyxflowUser",
-  "logged"
-);
+  else{
 
-    document.getElementById(
-      "registerScreen"
-    ).style.display="none";
+    passwordInput.type = "password";
 
-  })
+  }
 
-  .catch((error)=>{
+}
 
-    alert(error.message);
+
+function toggleLoginPassword(){
+
+  let loginPassword =
+  document.getElementById("loginPassword");
+
+  if(loginPassword.type === "password"){
+
+    loginPassword.type = "text";
+
+  }
+
+  else{
+
+    loginPassword.type = "password";
+
+  }
+
+}
+
+
+function forgotPassword(){
+
+  let username =
+  document.getElementById(
+    "loginUsername"
+  ).value;
+
+  if(username == ""){
+
+    alert("Enter username first ❌");
+    return;
+
+  }
+
+  db.collection("users")
+  .where("username", "==", username)
+  .get()
+
+  .then((querySnapshot)=>{
+
+    if(querySnapshot.empty){
+
+      alert("Username not found ❌");
+      return;
+
+    }
+
+    let userData =
+    querySnapshot.docs[0].data();
+
+    let email =
+    userData.email;
+
+    auth.sendPasswordResetEmail(email)
+
+    .then(()=>{
+
+      alert(
+        "Password reset email sent 📧"
+      );
+
+    });
 
   });
 
 }
+
+
+function openLogin(){
+
+  document.getElementById("welcomeScreen").style.display="none";
+  document.getElementById("registerScreen").style.display="flex";
+
+  isLogin = true;   // 🔥 VERY IMPORTANT
+  switchMode();
+}
+
 
 /* FEEDBACK POPUP */
 
 window.onload=function(){
   
-  setupRecaptcha();
+  
+  let today =
+  new Date().toISOString().split("T")[0];
+  
+  document.getElementById("dob")
+  .max = today;
+  
   
   let user =
   localStorage.getItem(
@@ -819,6 +1063,11 @@ window.onload=function(){
   );
 
   if(user==="logged"){
+    
+    
+    document.getElementById(
+      "registerScreen"
+      ).style.display="none";
 
     document.getElementById(
       "welcomeScreen"
@@ -899,8 +1148,8 @@ function addDoubt(){
 
   div.className="doubt";
 
-  div.innerHTML=
-  "🧠 "+text;
+  div.textContent =
+  "🧠 " + text;
 
   document.getElementById("doubtList")
   .prepend(div);
@@ -927,7 +1176,7 @@ function addFeedback(){
 
   div.className="doubt";
 
-  div.innerHTML =
+  div.textContent =
   "⭐ " + text;
 
   document.getElementById("feedbackList")
@@ -939,11 +1188,17 @@ function addFeedback(){
 
 function logoutUser(){
 
-  localStorage.removeItem(
-    "studyxflowUser"
-  );
+  auth.signOut()
 
-  location.reload();
+  .then(()=>{
+
+    localStorage.removeItem(
+      "studyxflowUser"
+    );
+
+    location.reload();
+
+  });
 
 }
 
@@ -987,35 +1242,6 @@ function logoutUser(){
 
 </div>
 
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
-
-<script>
-
-const phoneInput =
-document.querySelector("#phone");
-
-const iti =
-window.intlTelInput(phoneInput, {
-
-initialCountry:"in",
-
-separateDialCode:true,
-
-preferredCountries:[
-"in",
-"us",
-"gb",
-"ae",
-"jp"
-],
-
-utilsScript:
-"https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js"
-
-});
-
-</script>
 
 </body>
 </html>
