@@ -1,0 +1,792 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>STUDYXFLOW</title>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'Segoe UI';
+  background:#050816;
+  color:white;
+  overflow-x:hidden;
+}
+
+/* ANIMATED BG */
+
+body::before{
+  content:"";
+  position:fixed;
+  width:200%;
+  height:200%;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(0,198,255,0.25), transparent 25%),
+    radial-gradient(circle at 80% 30%, rgba(255,0,255,0.25), transparent 25%),
+    radial-gradient(circle at 50% 80%, rgba(0,100,255,0.2), transparent 25%);
+  animation:bgMove 12s linear infinite;
+  z-index:-2;
+}
+
+@keyframes bgMove{
+  0%{
+    transform:translate(0,0);
+  }
+  50%{
+    transform:translate(-5%,-5%);
+  }
+  100%{
+    transform:translate(0,0);
+  }
+}
+
+/* HEADER */
+
+header{
+  width:100%;
+  padding:18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  backdrop-filter:blur(12px);
+  background:rgba(255,255,255,0.05);
+  position:sticky;
+  top:0;
+  z-index:1000;
+}
+
+.logo{
+  font-size:28px;
+  font-weight:bold;
+}
+
+.logo span{
+  color:#ff00ff;
+}
+
+.menuBtn{
+  font-size:28px;
+  cursor:pointer;
+}
+
+/* SIDE MENU */
+
+#menu{
+  position:fixed;
+  left:-250px;
+  top:0;
+  width:230px;
+  height:100%;
+  background:rgba(0,0,0,0.8);
+  backdrop-filter:blur(15px);
+  padding:20px;
+  transition:0.4s;
+  z-index:999;
+}
+
+#menu.active{
+  left:0;
+}
+
+#menu h2{
+  margin-bottom:20px;
+}
+
+#menu button{
+  width:100%;
+  margin-top:15px;
+}
+
+/* HERO */
+
+.hero{
+  text-align:center;
+  padding:60px 20px;
+}
+
+.hero h1{
+  font-size:55px;
+  font-weight:bold;
+}
+
+.hero h1 span{
+  color:#ff00ff;
+}
+
+.hero p{
+  margin-top:15px;
+  font-size:20px;
+  color:#ccc;
+}
+
+/* BUTTON */
+
+button{
+  padding:13px 20px;
+  border:none;
+  border-radius:14px;
+  margin-top:15px;
+  cursor:pointer;
+  font-size:16px;
+  font-weight:bold;
+  color:white;
+  background:linear-gradient(45deg,#00c6ff,#ff00ff);
+  transition:0.3s;
+}
+
+button:hover{
+  transform:scale(1.05);
+  box-shadow:
+    0 0 15px #00c6ff,
+    0 0 30px #ff00ff;
+}
+
+/* MAIN */
+
+.main{
+  padding:20px;
+}
+
+/* CARDS */
+
+.card{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+  backdrop-filter:blur(12px);
+  border-radius:20px;
+  padding:20px;
+  margin-top:20px;
+  box-shadow:
+    0 0 15px rgba(0,198,255,0.3),
+    0 0 25px rgba(255,0,255,0.15);
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+  box-shadow:
+    0 0 20px rgba(0,198,255,0.6),
+    0 0 40px rgba(255,0,255,0.3);
+}
+
+.card h2{
+  margin-bottom:10px;
+  color:#00c6ff;
+}
+
+/* INPUT */
+
+input{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  margin-top:12px;
+  outline:none;
+  background:rgba(255,255,255,0.08);
+  color:white;
+  font-size:15px;
+}
+
+/* DOUBT LIST */
+
+.doubt{
+  padding:15px;
+  border-radius:14px;
+  background:rgba(255,255,255,0.05);
+  margin-top:10px;
+}
+
+/* QUOTES */
+
+.quote{
+  text-align:center;
+  font-size:22px;
+  margin-top:30px;
+  color:#00c6ff;
+}
+
+/* FOOTER */
+
+footer{
+  margin-top:40px;
+  padding:20px;
+  text-align:center;
+  background:rgba(255,255,255,0.05);
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+  .hero h1{
+    font-size:38px;
+  }
+
+  .hero p{
+    font-size:16px;
+  }
+
+  .logo{
+    font-size:22px;
+  }
+
+}
+
+/* SPLASH */
+
+#splashScreen{
+  position:fixed;
+  width:100%;
+  height:100vh;
+  background:black;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:999999;
+  animation:fadeOut 1s ease forwards;
+  animation-delay:2s;
+}
+
+#splashImg{
+  width:100%;
+  height:100vh;
+  object-fit:cover;
+}
+
+/* FADE */
+
+@keyframes fadeOut{
+  to{
+    opacity:0;
+    visibility:hidden;
+  }
+}
+
+/* WELCOME */
+
+#welcomeScreen,
+#registerScreen{
+  position:fixed;
+  width:100%;
+  height:100vh;
+  background:#050816;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:99999;
+}
+
+.welcomeCard{
+  width:90%;
+  max-width:350px;
+  padding:30px;
+  border-radius:25px;
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(15px);
+  text-align:center;
+}
+
+.welcomeCard input{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  margin-top:12px;
+  background:rgba(255,255,255,0.08);
+  color:white;
+}
+
+/* FEEDBACK */
+
+#feedbackPopup{
+  position:fixed;
+  width:100%;
+  height:100vh;
+  background:rgba(0,0,0,0.7);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:999999;
+}
+
+.feedbackBox{
+  width:90%;
+  max-width:330px;
+  background:#111827;
+  padding:25px;
+  border-radius:22px;
+  text-align:center;
+}
+
+.emojiRow{
+  display:flex;
+  justify-content:space-between;
+  margin-top:20px;
+}
+
+.emojiRow span{
+  font-size:35px;
+  cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SPLASH IMAGE -->
+
+<div id="splashScreen">
+
+  <img src="poster.jpg" id="splashImg">
+
+</div>
+
+<!-- WELCOME SCREEN -->
+
+<div id="welcomeScreen">
+
+  <div class="welcomeCard">
+
+    <h1>🎓 StudyXFlow</h1>
+
+    <p>
+      Learn • Practice • Succeed 🚀
+    </p>
+
+    <button onclick="openRegister()">
+      Get Started
+    </button>
+
+  </div>
+
+</div>
+
+<!-- REGISTER SCREEN -->
+
+<div id="registerScreen" style="display:none;">
+
+  <div class="welcomeCard">
+
+    <h2>Create Account</h2>
+
+    <input id="username"
+    placeholder="Username">
+
+    <input id="dob"
+    type="date">
+
+    <input id="phone"
+    placeholder="Phone Number">
+
+    <button onclick="sendOTP()">
+      Send OTP
+    </button>
+
+    <br><br>
+
+    <button onclick="gmailLogin()">
+      Continue with Gmail
+    </button>
+
+  </div>
+
+</div>
+
+<!-- MENU -->
+
+<div id="menu">
+
+<h2>STUDYXFLOW</h2>
+
+<button onclick="showSection('home')">🏠 Home</button>
+
+<button onclick="showSection('doubts')">❓ Doubts</button>
+
+<button onclick="showSection('notes')">📚 Notes</button>
+
+<button onclick="showSection('profile')">👤 Profile</button>
+
+<button onclick="showSection('feedback')">
+💬 Feedback
+</button>
+
+</div>
+
+<!-- HEADER -->
+
+<header>
+
+<div class="logo">
+Study<span>X</span>Flow
+</div>
+
+<div class="menuBtn" onclick="toggleMenu()">☰</div>
+
+</header>
+
+<!-- HERO -->
+
+<div class="hero">
+
+<h1>Study<span>X</span>Flow</h1>
+
+<p>Learn • Practice • Succeed 🚀</p>
+
+<button onclick="openRegister()">
+  Get Started
+  </button>
+
+</div>
+
+<!-- FEEDBACK SECTION -->
+
+<div id="feedbackSection" style="display:none;">
+
+  <div class="card">
+
+    <h2>💬 Feedback</h2>
+
+    <input id="feedbackInput"
+    placeholder="Write your feedback...">
+
+    <button onclick="addFeedback()">
+      Submit Feedback
+    </button>
+
+  </div>
+
+  <div class="card">
+
+    <h2>⭐ User Feedbacks</h2>
+
+    <div id="feedbackList"></div>
+
+  </div>
+
+</div>
+<!-- MAIN -->
+
+<div class="main">
+
+<!-- HOME -->
+
+<div id="homeSection">
+
+<div class="card">
+
+<h2>🔥 About Platform</h2>
+
+<p>
+StudyXFlow helps students ask doubts,
+share notes and grow together.
+</p>
+
+</div>
+
+<div class="card">
+
+<h2>⚡ Features</h2>
+
+<p>✔ Ask Doubts Instantly</p>
+<p>✔ Share Notes</p>
+<p>✔ Mobile Friendly</p>
+<p>✔ Student Community</p>
+
+</div>
+
+<div class="quote">
+"Education Made Simple"
+</div>
+
+</div>
+
+<!-- DOUBTS -->
+
+<div id="doubtsSection" style="display:none;">
+
+<div class="card">
+
+<h2>❓ Ask Your Doubt</h2>
+
+<input id="doubtInput" placeholder="Type your doubt...">
+
+<button onclick="addDoubt()">Post Doubt</button>
+
+</div>
+
+<div class="card">
+
+<h2>📌 Doubts Feed</h2>
+
+<div id="doubtList"></div>
+
+</div>
+
+</div>
+
+<!-- NOTES -->
+
+<div id="notesSection" style="display:none;">
+
+<div class="card">
+
+<h2>📚 Upload Notes</h2>
+
+<input type="file">
+
+<button>Upload</button>
+
+</div>
+
+</div>
+
+<!-- PROFILE -->
+
+<div id="profileSection" style="display:none;">
+
+<div class="card">
+
+<h2>👤 Student Profile</h2>
+
+<p>Name: Sai</p>
+
+<p>Status: Active Learner 🚀</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+
+Built with ❤️ by Sai
+
+</footer>
+
+<script>
+
+/* MENU */
+
+function toggleMenu(){
+  document.getElementById("menu")
+  .classList.toggle("active");
+}
+
+/* OPEN REGISTER */
+
+function openRegister(){
+
+  document.getElementById("welcomeScreen")
+  .style.display="none";
+
+  document.getElementById("registerScreen")
+  .style.display="flex";
+
+}
+
+/* OTP */
+
+function sendOTP(){
+
+  let user =
+  document.getElementById("username").value;
+
+  let dob =
+  document.getElementById("dob").value;
+
+  let phone =
+  document.getElementById("phone").value;
+
+  if(user=="" || dob=="" || phone==""){
+
+    alert("Fill all details");
+    return;
+  }
+
+  alert("OTP sent 📱");
+
+  document.getElementById("registerScreen")
+  .style.display="none";
+
+}
+
+/* GMAIL LOGIN */
+
+function gmailLogin(){
+
+  alert("Firebase Gmail Login add cheyyali 🔥");
+
+  document.getElementById("registerScreen")
+  .style.display="none";
+
+}
+
+/* FEEDBACK POPUP */
+
+window.onload=function(){
+
+  setTimeout(()=>{
+
+    document.getElementById("feedbackPopup")
+    .style.display="flex";
+
+  },6000);
+
+}
+
+/* RATE */
+
+function rate(text){
+
+  alert("Feedback: "+text);
+
+  closeFeedback();
+
+}
+
+/* CLOSE */
+
+function closeFeedback(){
+
+  document.getElementById("feedbackPopup")
+  .style.display="none";
+
+}
+
+/* SECTIONS */
+
+function showSection(section){
+
+  document.getElementById("homeSection")
+  .style.display="none";
+
+  document.getElementById("doubtsSection")
+  .style.display="none";
+
+  document.getElementById("notesSection")
+  .style.display="none";
+
+  document.getElementById("profileSection")
+  .style.display="none";
+
+  document.getElementById("feedbackSection")
+  .style.display="none";
+
+  document.getElementById(section+"Section")
+  .style.display="block";
+
+  toggleMenu();
+
+}
+
+/* ADD DOUBT */
+
+function addDoubt(){
+
+  let input =
+  document.getElementById("doubtInput");
+
+  let text = input.value;
+
+  if(text.trim()==""){
+    alert("Enter doubt");
+    return;
+  }
+
+  let div = document.createElement("div");
+
+  div.className="doubt";
+
+  div.innerHTML=
+  "🧠 "+text;
+
+  document.getElementById("doubtList")
+  .prepend(div);
+
+  input.value="";
+
+}
+
+/* FEEDBACK */
+
+function addFeedback(){
+
+  let input =
+  document.getElementById("feedbackInput");
+
+  let text = input.value;
+
+  if(text.trim()==""){
+    alert("Enter feedback");
+    return;
+  }
+
+  let div = document.createElement("div");
+
+  div.className="doubt";
+
+  div.innerHTML =
+  "⭐ " + text;
+
+  document.getElementById("feedbackList")
+  .prepend(div);
+
+  input.value = "";
+
+}
+
+</script>
+
+<!-- FEEDBACK POPUP -->
+
+<div id="feedbackPopup">
+
+  <div class="feedbackBox">
+
+    <h2>💬 Give Feedback</h2>
+
+    <p>How was your experience?</p>
+
+    <div class="emojiRow">
+
+      <span onclick="rate('😞 Bad')">😞</span>
+
+      <span onclick="rate('🙂 Not Bad')">🙂</span>
+
+      <span onclick="rate('😊 Good')">😊</span>
+
+      <span onclick="rate('🤩 Excellent')">🤩</span>
+
+      <span onclick="rate('🔥 Perfect')">🔥</span>
+
+    </div>
+
+    <br>
+
+    <button onclick="closeFeedback()">
+      Later
+    </button>
+
+    <button onclick="closeFeedback()">
+      Skip
+    </button>
+
+  </div>
+
+</div>
+
+</body>
+</html>
