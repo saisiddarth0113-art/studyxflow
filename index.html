@@ -19,6 +19,7 @@ body{
   background:#050816;
   color:white;
   overflow-x:hidden;
+  min-height:100vh;
 }
 
 /* ANIMATED BG */
@@ -245,13 +246,16 @@ footer{
 
 #splashScreen{
   position:fixed;
+  top:0;
+  left:0;
   width:100%;
-  height:100vh;
+  height:100%;
   background:black;
   display:flex;
   justify-content:center;
   align-items:center;
   z-index:999999;
+  overflow:hidden;
   animation:fadeOut 1s ease forwards;
   animation-delay:2s;
 }
@@ -261,6 +265,7 @@ footer{
   height:100%;
   object-fit:cover;
   display:block;
+  background:black;
 }
 
 /* FADE */
@@ -339,7 +344,40 @@ footer{
   cursor:pointer;
 }
 
+.formGroup{
+  margin-top:18px;
+}
+
+.formGroup label{
+  display:block;
+  margin-bottom:8px;
+  font-size:15px;
+  color:#ccc;
+}
+
+.formGroup input,
+.formGroup select{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  background:rgba(255,255,255,0.08);
+  color:white;
+  font-size:15px;
+}
+
+.formButtons{
+  margin-top:25px;
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+
 </style>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.css"/>
+
 </head>
 
 <body>
@@ -380,14 +418,37 @@ footer{
 
     <h2>Create Account</h2>
 
-    <input id="username"
-    placeholder="Username">
-
-    <input id="dob"
-    type="date">
-
-    <input id="phone"
-    placeholder="Phone Number">
+  <div class="formGroup">
+    
+    <label>👤 Username</label>
+    
+    <input
+    id="username"
+    placeholder="Enter Username">
+    
+    </div>
+    
+    <div class="formGroup">
+      
+      <label>🎂 Date Of Birth</label>
+      
+      <input
+      id="dob"
+      type="date">
+        
+        
+      </div>
+      
+      <div class="formGroup">
+        
+        <label>📱 Phone Number</label>
+        
+        <input
+        id="phone"
+        type="tel"
+        placeholder="Enter Phone Number">
+        
+        </div>
 
     <button onclick="sendOTP()">
       Send OTP
@@ -402,6 +463,9 @@ footer{
   </div>
 
 </div>
+
+<div id="recaptcha-container"
+style="margin-top:15px;"></div>
 
 <!-- MENU -->
 
@@ -563,6 +627,10 @@ share notes and grow together.
 
 <p>Status: Active Learner 🚀</p>
 
+<button onclick="logoutUser()">
+  Logout
+  </button>
+
 </div>
 
 </div>
@@ -627,27 +695,81 @@ function openRegister(){
 
 /* OTP */
 
+function setupRecaptcha(){
+
+window.recaptchaVerifier =
+new firebase.auth.RecaptchaVerifier(
+'recaptcha-container',
+{
+  size:'normal',
+  callback:function(response){
+    console.log("Recaptcha solved");
+  },
+  'expired-callback':function(){
+    alert("Recaptcha expired");
+  }
+}
+);
+
+window.recaptchaVerifier.render();
+
+}
+
 function sendOTP(){
 
-  let user =
-  document.getElementById("username").value;
-
-  let dob =
-  document.getElementById("dob").value;
-
   let phone =
-  document.getElementById("phone").value;
+  iti.getNumber();
 
-  if(user=="" || dob=="" || phone==""){
-
-    alert("Fill all details");
+  if(phone==""){
+    alert("Enter phone number");
     return;
   }
 
-  alert("OTP sent 📱");
+  firebase.auth().signInWithPhoneNumber(
+    phone,
+    window.recaptchaVerifier
+  )
 
-  document.getElementById("registerScreen")
-  .style.display="none";
+  .then(function(confirmationResult){
+
+    window.confirmationResult =
+    confirmationResult;
+
+    let code =
+    prompt("Enter OTP");
+
+    confirmationResult.confirm(code)
+
+    .then(function(result){
+
+      alert(
+        "Login Success 🔥"
+      );
+      
+      localStorage.setItem(
+        "studyxflowUser",
+        "logged"
+);
+
+      document.getElementById(
+        "registerScreen"
+      ).style.display="none";
+
+    })
+
+    .catch(function(error){
+
+      alert("Wrong OTP ❌");
+
+    });
+
+  })
+
+  .catch(function(error){
+
+    alert(error.message);
+
+  });
 
 }
 
@@ -666,6 +788,11 @@ function gmailLogin(){
       "Welcome " +
       result.user.displayName
     );
+    
+    localStorage.setItem(
+  "studyxflowUser",
+  "logged"
+);
 
     document.getElementById(
       "registerScreen"
@@ -684,11 +811,27 @@ function gmailLogin(){
 /* FEEDBACK POPUP */
 
 window.onload=function(){
+  
+  setupRecaptcha();
+  
+  let user =
+  localStorage.getItem(
+    "studyxflowUser"
+  );
+
+  if(user==="logged"){
+
+    document.getElementById(
+      "welcomeScreen"
+    ).style.display="none";
+
+  }
 
   setTimeout(()=>{
 
-    document.getElementById("feedbackPopup")
-    .style.display="flex";
+    document.getElementById(
+      "feedbackPopup"
+    ).style.display="flex";
 
   },6000);
 
@@ -795,6 +938,16 @@ function addFeedback(){
 
 }
 
+function logoutUser(){
+
+  localStorage.removeItem(
+    "studyxflowUser"
+  );
+
+  location.reload();
+
+}
+
 </script>
 
 <!-- FEEDBACK POPUP -->
@@ -834,6 +987,36 @@ function addFeedback(){
   </div>
 
 </div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
+
+<script>
+
+const phoneInput =
+document.querySelector("#phone");
+
+const iti =
+window.intlTelInput(phoneInput, {
+
+initialCountry:"in",
+
+separateDialCode:true,
+
+preferredCountries:[
+"in",
+"us",
+"gb",
+"ae",
+"jp"
+],
+
+utilsScript:
+"https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js"
+
+});
+
+</script>
 
 </body>
 </html>
