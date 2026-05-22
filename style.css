@@ -111,29 +111,110 @@ header{
 
 .hero{
 
-background-image:url("poster.jpg");
+min-height:100vh;
 
-background-size:contain;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+
+text-align:center;
+
+padding:40px 20px;
+
+background:
+
+radial-gradient(
+circle at left,
+rgba(0,198,255,0.25),
+transparent 35%
+),
+
+radial-gradient(
+circle at right,
+rgba(255,0,255,0.25),
+transparent 35%
+),
+
+#050816;
+
+background-image:url("poster.jpg");
 
 background-repeat:no-repeat;
 
 background-position:center;
 
+background-size:90%;
+
+overflow:hidden;
+
+}
+
+/* HERO TITLE */
+
+.hero h1{
+
+font-size:55px;
+
+font-weight:bold;
+
+color:white;
+
+text-shadow:
+0 0 15px #00c6ff,
+0 0 30px #ff00ff;
+
+}
+
+/* X COLOR */
+
+.hero h1 span{
+
+color:#ff00ff;
+
+}
+
+/* HERO TEXT */
+
+.hero p{
+
+margin-top:15px;
+
+font-size:20px;
+
+color:#ddd;
+
+letter-spacing:1px;
+
+text-shadow:
+0 0 10px rgba(255,255,255,0.2);
+
+}
+
+/* MOBILE RESPONSIVE */
+
+@media(max-width:768px){
+
+.hero{
+
+background-size:120%;
+
+padding:20px;
+
 }
 
 .hero h1{
-  font-size:55px;
-  font-weight:bold;
-}
 
-.hero h1 span{
-  color:#ff00ff;
+font-size:38px;
+
 }
 
 .hero p{
-  margin-top:15px;
-  font-size:20px;
-  color:#ccc;
+
+font-size:16px;
+
+}
+
 }
 
 /* BUTTON */
