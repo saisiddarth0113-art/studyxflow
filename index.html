@@ -3,380 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050816">
+<meta name="apple-mobile-web-app-capable" content="yes">
 
 <title>STUDYXFLOW</title>
 
-<style>
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-body{
-  font-family:'Segoe UI';
-  background:#050816;
-  color:white;
-  overflow-x:hidden;
-  min-height:100vh;
-}
-
-/* ANIMATED BG */
-
-body::before{
-  content:"";
-  position:fixed;
-  width:200%;
-  height:200%;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(0,198,255,0.25), transparent 25%),
-    radial-gradient(circle at 80% 30%, rgba(255,0,255,0.25), transparent 25%),
-    radial-gradient(circle at 50% 80%, rgba(0,100,255,0.2), transparent 25%);
-  animation:bgMove 12s linear infinite;
-  z-index:-2;
-}
-
-@keyframes bgMove{
-  0%{
-    transform:translate(0,0);
-  }
-  50%{
-    transform:translate(-5%,-5%);
-  }
-  100%{
-    transform:translate(0,0);
-  }
-}
-
-/* HEADER */
-
-header{
-  width:100%;
-  padding:18px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  backdrop-filter:blur(12px);
-  background:rgba(255,255,255,0.05);
-  position:sticky;
-  top:0;
-  z-index:1000;
-}
-
-.logo{
-  font-size:28px;
-  font-weight:bold;
-}
-
-.logo span{
-  color:#ff00ff;
-}
-
-.menuBtn{
-  font-size:28px;
-  cursor:pointer;
-}
-
-/* SIDE MENU */
-
-#menu{
-  position:fixed;
-  left:-250px;
-  top:0;
-  width:230px;
-  height:100%;
-  background:rgba(0,0,0,0.8);
-  backdrop-filter:blur(15px);
-  padding:20px;
-  transition:0.4s;
-  z-index:999;
-}
-
-#menu.active{
-  left:0;
-}
-
-#menu h2{
-  margin-bottom:20px;
-}
-
-#menu button{
-  width:100%;
-  margin-top:15px;
-}
-
-/* HERO */
-
-.hero{
-  text-align:center;
-  padding:60px 20px;
-}
-
-.hero h1{
-  font-size:55px;
-  font-weight:bold;
-}
-
-.hero h1 span{
-  color:#ff00ff;
-}
-
-.hero p{
-  margin-top:15px;
-  font-size:20px;
-  color:#ccc;
-}
-
-/* BUTTON */
-
-button{
-  padding:13px 20px;
-  border:none;
-  border-radius:14px;
-  margin-top:15px;
-  cursor:pointer;
-  font-size:16px;
-  font-weight:bold;
-  color:white;
-  background:linear-gradient(45deg,#00c6ff,#ff00ff);
-  transition:0.3s;
-}
-
-button:hover{
-  transform:scale(1.05);
-  box-shadow:
-    0 0 15px #00c6ff,
-    0 0 30px #ff00ff;
-}
-
-/* MAIN */
-
-.main{
-  padding:20px;
-}
-
-/* CARDS */
-
-.card{
-  background:rgba(255,255,255,0.06);
-  border:1px solid rgba(255,255,255,0.1);
-  backdrop-filter:blur(12px);
-  border-radius:20px;
-  padding:20px;
-  margin-top:20px;
-  box-shadow:
-    0 0 15px rgba(0,198,255,0.3),
-    0 0 25px rgba(255,0,255,0.15);
-  transition:0.3s;
-}
-
-.card:hover{
-  transform:translateY(-5px);
-  box-shadow:
-    0 0 20px rgba(0,198,255,0.6),
-    0 0 40px rgba(255,0,255,0.3);
-}
-
-.card h2{
-  margin-bottom:10px;
-  color:#00c6ff;
-}
-
-/* INPUT */
-
-input{
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:12px;
-  margin-top:12px;
-  outline:none;
-  background:rgba(255,255,255,0.08);
-  color:white;
-  font-size:15px;
-}
-
-/* DOUBT LIST */
-
-.doubt{
-  padding:15px;
-  border-radius:14px;
-  background:rgba(255,255,255,0.05);
-  margin-top:10px;
-}
-
-/* QUOTES */
-
-.quote{
-  text-align:center;
-  font-size:22px;
-  margin-top:30px;
-  color:#00c6ff;
-}
-
-/* FOOTER */
-
-footer{
-  margin-top:40px;
-  padding:20px;
-  text-align:center;
-  background:rgba(255,255,255,0.05);
-}
-
-/* MOBILE */
-
-@media(max-width:768px){
-
-  .hero h1{
-    font-size:38px;
-  }
-
-  .hero p{
-    font-size:16px;
-  }
-
-  .logo{
-    font-size:22px;
-  }
-
-}
-
-/* SPLASH */
-
-#splashScreen{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:black;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  z-index:999999;
-  overflow:hidden;
-  animation:fadeOut 1s ease forwards;
-  animation-delay:2s;
-}
-
-#splashImg{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-  background:black;
-}
-
-/* FADE */
-
-@keyframes fadeOut{
-  to{
-    opacity:0;
-    visibility:hidden;
-  }
-}
-
-/* WELCOME */
-
-#welcomeScreen,
-#registerScreen{
-  position:fixed;
-  width:100%;
-  min-height:100vh;
-  background:#050816;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  z-index:99999;
-}
-
-.welcomeCard{
-  width:90%;
-  max-width:350px;
-  padding:30px;
-  border-radius:25px;
-  background:rgba(255,255,255,0.08);
-  backdrop-filter:blur(15px);
-  text-align:center;
-}
-
-.welcomeCard input{
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:12px;
-  margin-top:12px;
-  background:rgba(255,255,255,0.08);
-  color:white;
-}
-
-/* FEEDBACK */
-
-#feedbackPopup{
-  position:fixed;
-  width:100%;
-  height:100vh;
-  background:rgba(0,0,0,0.7);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:999999;
-}
-
-.feedbackBox{
-  width:90%;
-  max-width:330px;
-  background:#111827;
-  padding:25px;
-  border-radius:22px;
-  text-align:center;
-}
-
-.emojiRow{
-  display:flex;
-  justify-content:space-between;
-  margin-top:20px;
-}
-
-.emojiRow span{
-  font-size:35px;
-  cursor:pointer;
-}
-
-.formGroup{
-  margin-top:18px;
-}
-
-.formGroup label{
-  display:block;
-  margin-bottom:8px;
-  font-size:15px;
-  color:#ccc;
-}
-
-.formGroup input,
-.formGroup select{
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:12px;
-  background:rgba(255,255,255,0.08);
-  color:white;
-  font-size:15px;
-}
-
-.formButtons{
-  margin-top:25px;
-  display:flex;
-  flex-direction:column;
-  gap:15px;
-}
-
-</style>
-
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/25.3.0/css/intlTelInput.css"/>
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="manifest" href="manifest.json">
 
 </head>
 
@@ -554,17 +191,62 @@ Study<span>X</span>Flow
 
 </header>
 
-<!-- HERO -->
+<!-- DASHBOARD -->
 
-<div class="hero">
+<div class="dashboardHero">
 
-<h1>Study<span>X</span>Flow</h1>
+<div class="welcomeBox">
 
-<p>Learn • Practice • Succeed 🚀</p>
+<div>
 
-<button onclick="openRegister()">
-  Get Started
-  </button>
+<h2>Hello, Sai 👋</h2>
+
+<p>Keep Learning, Keep Growing!</p>
+
+</div>
+
+<div class="trophy">
+🏆
+</div>
+
+</div>
+
+<div class="statsGrid">
+
+<div class="statCard">
+<h3>7</h3>
+<p>Days Streak 🔥</p>
+</div>
+
+<div class="statCard">
+<h3>23</h3>
+<p>Doubts Asked</p>
+</div>
+
+<div class="statCard">
+<h3>12</h3>
+<p>Notes Uploaded</p>
+</div>
+
+</div>
+
+<div class="progressCard">
+
+<div class="progressTop">
+
+<h3>85%</h3>
+
+<p>Progress</p>
+
+</div>
+
+<div class="progressBar">
+
+<div class="progressFill"></div>
+
+</div>
+
+</div>
 
 </div>
 
@@ -708,501 +390,7 @@ Built with ❤️ by Sai
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
-<script>
-  
-const firebaseConfig = {
-  apiKey: "AIzaSyCV4Dh59Z7a787_6K9wyFQEkpwpYzJELhk",
-  authDomain: "studyxflow.firebaseapp.com",
-  projectId: "studyxflow",
-  storageBucket: "studyxflow.firebasestorage.app",
-  messagingSenderId: "694556908965",
-  appId: "1:694556908965:web:3d514b02f2cc56579adc4c",
-  measurementId: "G-VR94LFWTMS"
-};
-firebase.initializeApp(firebaseConfig);
 
-const auth = firebase.auth();
-const db = firebase.firestore();
-
-</script>
-
-<script>
-
-/* MENU */
-
-function toggleMenu(){
-  document.getElementById("menu")
-  .classList.toggle("active");
-}
-
-/* OPEN REGISTER */
-
-function openRegister(){
-
-  document.getElementById("welcomeScreen")
-  .style.display="none";
-
-  document.getElementById("registerScreen")
-  .style.display="flex";
-
-
-}
-
-
-let isLogin = false;
-
-function switchMode(){
-
-  isLogin = !isLogin;
-
-  if(isLogin){
-
-    document.getElementById("formTitle").innerText = "Login";
-
-    document.getElementById("createFields").style.display = "none";
-    document.getElementById("createBtn").style.display = "none";
-
-    document.getElementById("loginBtn").style.display = "block";
-    document.getElementById("loginInputBox").style.display = "block";
-
-    // 👉 text change
-    document.getElementById("switchText").innerText =
-      "Don't have account? Create one";
-
-  } else {
-
-    document.getElementById("formTitle").innerText = "Create Account";
-
-    document.getElementById("createFields").style.display = "block";
-    document.getElementById("createBtn").style.display = "block";
-
-    document.getElementById("loginBtn").style.display = "none";
-    document.getElementById("loginInputBox").style.display = "none";
-
-    // 👉 text change
-    document.getElementById("switchText").innerText =
-      "Already have account? Login";
-  }
-}
-
-
-function registerUser(){
-
-  let username =
-  document.getElementById("username").value;
-
-  let dob =
-  document.getElementById("dob").value;
-
-  let email =
-  document.getElementById("email").value;
-
-  let password =
-  document.getElementById("password").value;
-
-  let selectedDate =
-  new Date(dob);
-
-  let today =
-  new Date();
-
-  /* DOB CHECK */
-
-  if(selectedDate > today){
-
-    alert("Invalid Date Of Birth ❌");
-    return;
-
-  }
-
-  /* PASSWORD CHECK */
-
-  if(password.length < 6){
-
-    alert(
-      "Password must be 6+ characters ❌"
-    );
-
-    return;
-
-  }
-
-  /* USERNAME CHECK */
-
-  db.collection("users")
-  .where("username", "==", username)
-  .get()
-
-  .then((querySnapshot)=>{
-
-    if(!querySnapshot.empty){
-
-      alert("Username already taken ❌");
-      return;
-
-    }
-
-    /* CREATE ACCOUNT */
-
-    auth.createUserWithEmailAndPassword(
-      email,
-      password
-    )
-
-    .then((userCredential)=>{
-
-      let user = userCredential.user;
-
-      db.collection("users")
-      .doc(user.uid)
-      .set({
-
-        username: username,
-        email: email
-
-      })
-
-      .then(()=>{
-
-        alert("Account Created 🔥");
-
-        localStorage.setItem(
-          "studyxflowUser",
-          "logged"
-        );
-
-        document.getElementById(
-          "registerScreen"
-        ).style.display="none";
-
-      });
-
-    })
-
-    .catch((error)=>{
-
-      alert(error.message);
-
-    });
-
-  });
-
-}
-
-
-function loginUser(){
-
-  let loginValue = document.getElementById("loginInput").value;
-  let password = document.getElementById("password").value;
-
-  if(loginValue.trim() === "" || password.trim() === ""){
-    alert("Enter username/email and password ❌");
-    return;
-  }
-
-  let query;
-
-  // check if email or username
-  if(loginValue.includes("@")){
-
-    query = db.collection("users")
-    .where("email", "==", loginValue)
-    .get();
-
-  } else {
-
-    query = db.collection("users")
-    .where("username", "==", loginValue)
-    .get();
-
-  }
-
-  query.then((querySnapshot)=>{
-
-    if(querySnapshot.empty){
-      alert("User not found ❌");
-      return;
-    }
-
-    let userData = querySnapshot.docs[0].data();
-    let email = userData.email;
-
-    auth.signInWithEmailAndPassword(email, password)
-
-    .then(()=>{
-
-      alert("Login Success 🔥");
-
-      localStorage.setItem("studyxflowUser", "logged");
-
-      document.getElementById("registerScreen").style.display="none";
-
-    })
-
-    .catch((error)=>{
-      alert(error.message);
-    });
-
-  });
-
-}
-
-function togglePassword(){
-
-  let passwordInput =
-  document.getElementById("password");
-
-  if(passwordInput.type === "password"){
-
-    passwordInput.type = "text";
-
-  }
-
-  else{
-
-    passwordInput.type = "password";
-
-  }
-
-}
-
-
-function toggleLoginPassword(){
-
-  let loginPassword =
-  document.getElementById("loginPassword");
-
-  if(loginPassword.type === "password"){
-
-    loginPassword.type = "text";
-
-  }
-
-  else{
-
-    loginPassword.type = "password";
-
-  }
-
-}
-
-
-function forgotPassword(){
-
-  let username =
-  document.getElementById(
-    "loginUsername"
-  ).value;
-
-  if(username == ""){
-
-    alert("Enter username first ❌");
-    return;
-
-  }
-
-  db.collection("users")
-  .where("username", "==", username)
-  .get()
-
-  .then((querySnapshot)=>{
-
-    if(querySnapshot.empty){
-
-      alert("Username not found ❌");
-      return;
-
-    }
-
-    let userData =
-    querySnapshot.docs[0].data();
-
-    let email =
-    userData.email;
-
-    auth.sendPasswordResetEmail(email)
-
-    .then(()=>{
-
-      alert(
-        "Password reset email sent 📧"
-      );
-
-    });
-
-  });
-
-}
-
-
-function openLogin(){
-
-  document.getElementById("welcomeScreen").style.display="none";
-  document.getElementById("registerScreen").style.display="flex";
-
-  isLogin = true;   // 🔥 VERY IMPORTANT
-  switchMode();
-}
-
-
-/* FEEDBACK POPUP */
-
-window.onload=function(){
-  
-  
-  let today =
-  new Date().toISOString().split("T")[0];
-  
-  document.getElementById("dob")
-  .max = today;
-  
-  
-  let user =
-  localStorage.getItem(
-    "studyxflowUser"
-  );
-
-  if(user==="logged"){
-    
-    
-    document.getElementById(
-      "registerScreen"
-      ).style.display="none";
-
-    document.getElementById(
-      "welcomeScreen"
-    ).style.display="none";
-
-  }
-
-  setTimeout(()=>{
-
-    document.getElementById(
-      "feedbackPopup"
-    ).style.display="flex";
-
-  },6000);
-
-}
-
-/* RATE */
-
-function rate(text){
-
-  alert("Feedback: "+text);
-
-  closeFeedback();
-
-}
-
-/* CLOSE */
-
-function closeFeedback(){
-
-  document.getElementById("feedbackPopup")
-  .style.display="none";
-
-}
-
-/* SECTIONS */
-
-function showSection(section){
-
-  document.getElementById("homeSection")
-  .style.display="none";
-
-  document.getElementById("doubtsSection")
-  .style.display="none";
-
-  document.getElementById("notesSection")
-  .style.display="none";
-
-  document.getElementById("profileSection")
-  .style.display="none";
-
-  document.getElementById("feedbackSection")
-  .style.display="none";
-
-  document.getElementById(section+"Section")
-  .style.display="block";
-
-  toggleMenu();
-
-}
-
-/* ADD DOUBT */
-
-function addDoubt(){
-
-  let input =
-  document.getElementById("doubtInput");
-
-  let text = input.value;
-
-  if(text.trim()==""){
-    alert("Enter doubt");
-    return;
-  }
-
-  let div = document.createElement("div");
-
-  div.className="doubt";
-
-  div.textContent =
-  "🧠 " + text;
-
-  document.getElementById("doubtList")
-  .prepend(div);
-
-  input.value="";
-
-}
-
-/* FEEDBACK */
-
-function addFeedback(){
-
-  let input =
-  document.getElementById("feedbackInput");
-
-  let text = input.value;
-
-  if(text.trim()==""){
-    alert("Enter feedback");
-    return;
-  }
-
-  let div = document.createElement("div");
-
-  div.className="doubt";
-
-  div.textContent =
-  "⭐ " + text;
-
-  document.getElementById("feedbackList")
-  .prepend(div);
-
-  input.value = "";
-
-}
-
-function logoutUser(){
-
-  auth.signOut()
-
-  .then(()=>{
-
-    localStorage.removeItem(
-      "studyxflowUser"
-    );
-
-    location.reload();
-
-  });
-
-}
-
-</script>
 
 <!-- FEEDBACK POPUP -->
 
@@ -1242,6 +430,35 @@ function logoutUser(){
 
 </div>
 
+
+<div class="bottomNav">
+
+<button onclick="showSection('home')">
+🏠
+<span>Home</span>
+</button>
+
+<button onclick="showSection('doubts')">
+❓
+<span>Doubts</span>
+</button>
+
+<button onclick="showSection('notes')">
+📚
+<span>Notes</span>
+</button>
+
+<button onclick="showSection('profile')">
+👤
+<span>Profile</span>
+</button>
+
+</div>
+
+
+<script src="firebase.js"></script>
+<script src="auth.js"></script>
+<script src="app.js"></script>
 
 </body>
 </html>
