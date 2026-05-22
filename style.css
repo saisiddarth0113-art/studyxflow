@@ -110,8 +110,15 @@ header{
 /* HERO */
 
 .hero{
-  text-align:center;
-  padding:60px 20px;
+
+background-image:url("poster.jpg");
+
+background-size:contain;
+
+background-repeat:no-repeat;
+
+background-position:center;
+
 }
 
 .hero h1{
