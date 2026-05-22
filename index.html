@@ -448,28 +448,7 @@ Built with ❤️ by Sai
 </button>
 
 </div>
-
-
-<script>
-
-if("serviceWorker" in navigator){
-
-  navigator.serviceWorker
-  .register("serviceworker.js")
-
-  .then(()=>{
-
-    console.log(
-      "Service Worker Registered"
-    );
-
-  });
-
-}
-
-</script>
   
-
 <!-- FIREBASE -->
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
@@ -483,6 +462,26 @@ if("serviceWorker" in navigator){
 <script src="auth.js"></script>
 
 <script src="app.js"></script>
+
+
+  <script>
+
+if("serviceWorker" in navigator){
+
+  navigator.serviceworker
+  .register("serviceworker.js")
+
+  .then(()=>{
+
+    console.log(
+      "Service Worker Registered"
+    );
+
+  });
+
+}
+
+</script>
 
   
 </body>
