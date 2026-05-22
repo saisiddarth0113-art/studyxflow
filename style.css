@@ -137,7 +137,7 @@ rgba(5,8,22,0.85),
 rgba(5,8,22,0.85)
 ),
 
-url("desktop-poster.jpg");
+url("desktop.jpg");
 
 background-size:cover;
 
@@ -161,7 +161,7 @@ rgba(5,8,22,0.88),
 rgba(5,8,22,0.88)
 ),
 
-url("mobile-poster.jpg");
+url("mobile.jpg");
 
 background-size:cover;
 
