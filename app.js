@@ -122,21 +122,63 @@ function addDoubt(){
   let text = input.value;
 
   if(text.trim()==""){
-    alert("Enter doubt");
+
+    alert("Enter doubt ❌");
     return;
+
   }
 
-  let div = document.createElement("div");
+  let user = auth.currentUser;
 
-  div.className="doubt";
+  if(!user){
 
-  div.textContent =
-  "🧠 " + text;
+    alert("Login required ❌");
+    return;
 
-  document.getElementById("doubtList")
-  .prepend(div);
+  }
 
-  input.value="";
+  db.collection("users")
+  .doc(user.uid)
+  .get()
+
+  .then((doc)=>{
+
+    let username =
+    doc.data().username;
+
+    db.collection("doubts")
+    .add({
+
+      text:text,
+      uid:user.uid,
+      username:username,
+      createdAt:
+      firebase.firestore.FieldValue.serverTimestamp()
+
+    })
+
+    .then(()=>{
+
+      let div =
+      document.createElement("div");
+
+      div.className="doubt";
+
+      div.innerHTML=`
+
+      <b>${username}</b><br>
+      🧠 ${text}
+
+      `;
+
+      document.getElementById("doubtList")
+      .prepend(div);
+
+      input.value="";
+
+    });
+
+  });
 
 }
 
