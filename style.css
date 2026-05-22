@@ -136,15 +136,11 @@ rgba(255,0,255,0.25),
 transparent 35%
 ),
 
+url("poster.jpg")
+
+center center / cover no-repeat,
+
 #050816;
-
-background-image:url("poster.jpg");
-
-background-repeat:no-repeat;
-
-background-position:center;
-
-background-size:90%;
 
 overflow:hidden;
 
@@ -188,6 +184,34 @@ letter-spacing:1px;
 
 text-shadow:
 0 0 10px rgba(255,255,255,0.2);
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.hero{
+
+background-position:center;
+
+background-size:cover;
+
+padding:20px;
+
+}
+
+.hero h1{
+
+font-size:38px;
+
+}
+
+.hero p{
+
+font-size:16px;
+
+}
 
 }
 
