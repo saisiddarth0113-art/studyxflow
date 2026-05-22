@@ -243,32 +243,6 @@ font-size:16px;
 
 }
 
-/* MOBILE RESPONSIVE */
-
-@media(max-width:768px){
-
-.hero{
-
-background-size:120%;
-
-padding:20px;
-
-}
-
-.hero h1{
-
-font-size:38px;
-
-}
-
-.hero p{
-
-font-size:16px;
-
-}
-
-}
-
 /* BUTTON */
 
 button{
