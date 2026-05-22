@@ -116,7 +116,7 @@ header{
 
 /* HERO */
 
-.hero{
+.dashboardHero{
 
 min-height:100vh;
 
@@ -145,13 +145,15 @@ background-position:center;
 
 background-repeat:no-repeat;
 
+overflow:hidden;
+
 }
 
 /* MOBILE */
 
 @media(max-width:768px){
 
-.hero{
+.dashboardHero{
 
 background:
 
@@ -175,7 +177,7 @@ background-repeat:no-repeat;
 
 /* BUTTON */
 
-.hero button{
+.dashboardHero button{
 
 margin-top:25px;
 
@@ -207,7 +209,7 @@ transition:0.3s;
 
 }
 
-.hero button:hover{
+.dashboardHero button:hover{
 
 transform:scale(1.05);
 
@@ -219,7 +221,7 @@ box-shadow:
 
 @media(max-width:768px){
 
-.hero{
+.dashboardHero{
 
 background-position:center;
 
@@ -229,13 +231,13 @@ padding:20px;
 
 }
 
-.hero h1{
+.dashboardHero h1{
 
 font-size:38px;
 
 }
 
-.hero p{
+.dashboardHero p{
 
 font-size:16px;
 
