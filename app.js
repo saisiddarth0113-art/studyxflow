@@ -42,6 +42,41 @@ window.onload=function(){
 
   }
 
+  /* LOAD USER STATS */
+
+  if(auth.currentUser){
+
+    db.collection("users")
+
+    .doc(auth.currentUser.uid)
+
+    .get()
+
+    .then((doc)=>{
+
+      let data = doc.data();
+
+      document.getElementById(
+      "streakCount"
+      ).textContent =
+      data.dailyStreak || 0;
+
+      document.getElementById(
+      "doubtCount"
+      ).textContent =
+      data.doubtsAsked || 0;
+
+      document.getElementById(
+      "notesCount"
+      ).textContent =
+      data.notesUploaded || 0;
+
+    });
+
+  }
+
+  /* FEEDBACK POPUP */
+
   setTimeout(()=>{
 
     document.getElementById(
