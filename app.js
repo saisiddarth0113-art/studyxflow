@@ -53,26 +53,30 @@ window.onload=function(){
     .get()
 
     .then((doc)=>{
-
+      
       let data = doc.data();
-
+      
+      if(data.profileCompleted){
+        
+        document.getElementById(
+          "profileNotice"
+        ).style.display="none";
+      
+      } else {
+        
+        document.getElementById(
+          "profileNotice"
+        ).style.display="block";
+      
+      }
+      
       document.getElementById(
-      "streakCount"
+        "streakCount"
       ).textContent =
-      data.dailyStreak || 0;
-
-      document.getElementById(
-      "doubtCount"
-      ).textContent =
-      data.doubtsAsked || 0;
-
-      document.getElementById(
-      "notesCount"
-      ).textContent =
-      data.notesUploaded || 0;
-
+        data.dailyStreak || 0;
+    
     });
-
+  
   }
 
   /* FEEDBACK POPUP */
@@ -292,5 +296,75 @@ function closeProfilePopup(){
 document.getElementById(
 "profilePopup"
 ).style.display="none";
+
+}
+
+function saveProfile(){
+
+let user = auth.currentUser;
+
+if(!user) return;
+
+let fullName =
+document.getElementById(
+"fullName"
+).value;
+
+let goal =
+document.getElementById(
+"goal"
+).value;
+
+let dreamCollege =
+document.getElementById(
+"dreamCollege"
+).value;
+
+let favSubject =
+document.getElementById(
+"favSubject"
+).value;
+
+let weakSubject =
+document.getElementById(
+"weakSubject"
+).value;
+
+let bio =
+document.getElementById(
+"bio"
+).value;
+
+db.collection("users")
+
+.doc(user.uid)
+
+.update({
+
+fullName,
+
+goal,
+
+dreamCollege,
+
+favSubject,
+
+weakSubject,
+
+bio,
+
+profileCompleted:true
+
+})
+
+.then(()=>{
+
+document.getElementById(
+"profileNotice"
+).style.display="none";
+
+closeProfilePopup();
+
+});
 
 }
