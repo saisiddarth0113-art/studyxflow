@@ -90,9 +90,11 @@ window.onload=function(){
         "feedbackPopup"
       ).style.display="flex";
     
-    },3000);
+       },3000);
   
   }
+
+}
   
 /* RATE */
   
