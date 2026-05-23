@@ -97,17 +97,28 @@ window.onload=function(){
 }
   
 /* RATE */
-  
+
 function rate(text){
-  
+
   localStorage.setItem(
     "feedbackDone",
     "yes"
   );
-  
+
   closeFeedback();
 
 }
+
+/* CLOSE FEEDBACK */
+
+function closeFeedback(){
+
+  document.getElementById(
+    "feedbackPopup"
+  ).style.display="none";
+
+}
+
 
 /* SECTIONS */
 
