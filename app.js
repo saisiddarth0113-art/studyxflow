@@ -368,3 +368,63 @@ closeProfilePopup();
 });
 
 }
+
+function generateNotes(){
+
+let topic =
+document.getElementById(
+"notesTopic"
+).value;
+
+if(topic.trim()==""){
+
+alert("Enter topic ❌");
+
+return;
+
+}
+
+document.getElementById(
+"notesResult"
+).innerHTML =
+
+"🤖 Generating AI Notes...";
+
+setTimeout(()=>{
+
+document.getElementById(
+"notesResult"
+).innerHTML = `
+
+<h3>${topic}</h3>
+
+<p>
+
+• Introduction about ${topic}
+
+</p>
+
+<p>
+
+• Important concepts of ${topic}
+
+</p>
+
+<p>
+
+• Key points and summary
+
+</p>
+
+<p>
+
+• Quick revision notes
+
+</p>
+
+`;
+
+},2000);
+
+}
+
