@@ -108,8 +108,6 @@ function registerUser(){
         })
       .then(()=>{
 
-        alert("Account Created 🔥");
-
         localStorage.setItem(
           "studyxflowUser",
           "logged"
@@ -185,8 +183,6 @@ function loginUser(){
     )
 
     .then(()=>{
-
-      alert("Login Success 🔥");
 
       localStorage.setItem(
         "studyxflowUser",
