@@ -98,8 +98,6 @@ window.onload=function(){
   
 function rate(text){
   
-  alert("Feedback: "+text);
-  
   localStorage.setItem(
     "feedbackDone",
     "yes"
