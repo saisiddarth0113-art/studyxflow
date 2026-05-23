@@ -76,33 +76,36 @@ window.onload=function(){
   }
 
   /* FEEDBACK POPUP */
-
-  setTimeout(()=>{
-
-    document.getElementById(
-      "feedbackPopup"
-    ).style.display="flex";
-
-  },1000);
-
-}
-
+  
+  let feedbackDone =
+    localStorage.getItem(
+      "feedbackDone"
+    );
+  
+  if(feedbackDone!=="yes"){
+    
+    setTimeout(()=>{
+      
+      document.getElementById(
+        "feedbackPopup"
+      ).style.display="flex";
+    
+    },3000);
+  
+  }
+  
 /* RATE */
-
+  
 function rate(text){
-
+  
   alert("Feedback: "+text);
-
+  
+  localStorage.setItem(
+    "feedbackDone",
+    "yes"
+  );
+  
   closeFeedback();
-
-}
-
-/* CLOSE */
-
-function closeFeedback(){
-
-  document.getElementById("feedbackPopup")
-  .style.display="none";
 
 }
 
