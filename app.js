@@ -48,7 +48,7 @@ window.onload=function(){
       "feedbackPopup"
     ).style.display="flex";
 
-  },6000);
+  },1000);
 
 }
 
@@ -107,9 +107,8 @@ function showSection(section){
     .style.display="block";
 
   }
-  
-  document.getElementById("menu")
-    .classList.remove("active");
+
+  toggleMenu();
 
 }
 
@@ -177,6 +176,17 @@ function addDoubt(){
 
       input.value="";
 
+      db.collection("users")
+        .doc(user.uid)
+        
+        .update({
+          
+          doubtsAsked:
+            firebase.firestore.FieldValue.increment(1)
+        
+        });
+
+      
     });
 
   });
