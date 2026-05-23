@@ -106,9 +106,8 @@ function registerUser(){
           dailyStreak:1
         
         })
-
         
-      .then(()=>{
+        .then(()=>{
 
         localStorage.setItem(
           "studyxflowUser",
