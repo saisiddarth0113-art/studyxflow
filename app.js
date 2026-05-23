@@ -142,8 +142,9 @@ function showSection(section){
     .style.display="block";
 
   }
-
-  toggleMenu();
+  
+  document.getElementById("menu")
+    .classList.remove("active");
 
 }
 
