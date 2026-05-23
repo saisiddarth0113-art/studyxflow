@@ -278,3 +278,19 @@ setTimeout(()=>{
   ).style.display="none";
 
 },3000);
+
+function openProfilePopup(){
+
+document.getElementById(
+"profilePopup"
+).style.display="flex";
+
+}
+
+function closeProfilePopup(){
+
+document.getElementById(
+"profilePopup"
+).style.display="none";
+
+}
