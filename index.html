@@ -356,15 +356,24 @@ share notes and grow together.
 
 <!-- NOTES -->
 
-<div id="notesSection" style="display:none;">
+<div class="aiNotesBox">
 
-<div class="card">
+<h2>
+🤖 AI Notes Generator
+</h2>
 
-<h2>📚 Upload Notes</h2>
+<input
+type="text"
+id="notesTopic"
+placeholder="Enter Topic">
 
-<input type="file">
+<button onclick="generateNotes()">
 
-<button>Upload</button>
+Generate Notes
+
+</button>
+
+<div id="notesResult">
 
 </div>
 
