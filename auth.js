@@ -106,6 +106,8 @@ function registerUser(){
           dailyStreak:1
         
         })
+
+        
       .then(()=>{
 
         localStorage.setItem(
@@ -147,6 +149,7 @@ function loginUser(){
 
   }
 
+  
   let query;
 
   if(loginValue.includes("@")){
@@ -194,6 +197,7 @@ function loginUser(){
       ).style.display="none";
 
     })
+      
 
     .catch((error)=>{
       alert(error.message);
