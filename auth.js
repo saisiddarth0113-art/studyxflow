@@ -90,16 +90,22 @@ function registerUser(){
     .then((userCredential)=>{
 
       let user = userCredential.user;
-
+      
       db.collection("users")
-      .doc(user.uid)
-      .set({
-
-        username: username,
-        email: email
-
-      })
-
+        .doc(user.uid)
+        .set({
+          
+          username:username,
+          
+          email:email,
+          
+          doubtsAsked:0,
+          
+          notesUploaded:0,
+          
+          dailyStreak:1
+        
+        })
       .then(()=>{
 
         alert("Account Created 🔥");
