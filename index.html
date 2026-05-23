@@ -192,6 +192,15 @@ Study<span>X</span>Flow
 
 <!-- DASHBOARD -->
 
+  <div
+    id="profileNotice"
+    
+    onclick="openProfilePopup()">
+    
+    ⚠ Complete your profile to unlock AI features 🚀
+  
+  </div>
+
 <div class="dashboardHero">
 
 <div class="welcomeBox">
@@ -454,6 +463,61 @@ Built with ❤️ by Sai
 </button>
 
 </div>
+  
+  <div id="profilePopup">
+    
+    <div class="profilePopupBox">
+      
+      <h2>
+        Complete Your Profile 🚀
+      </h2>
+      
+      <input
+        type="text"
+        id="fullName"
+        placeholder="Full Name">
+      
+      <input
+        type="text"
+        id="goal"
+        placeholder="Your Goal">
+      
+      <input
+        type="text"
+        id="dreamCollege"
+        placeholder="Dream College">
+      
+      <input
+        type="text"
+        id="favSubject"
+        placeholder="Favorite Subject">
+      
+      <input
+        type="text"
+        id="weakSubject"
+        placeholder="Weak Subject">
+      
+      <textarea
+        id="bio"
+        placeholder="Write About Yourself">
+        
+        </textarea>
+      
+      <button onclick="saveProfile()">
+        
+        Save Profile
+      
+      </button>
+      
+      <button onclick="closeProfilePopup()">
+        
+        Skip
+      
+      </button>
+    
+    </div>
+  
+  </div>
   
 <!-- FIREBASE -->
 
