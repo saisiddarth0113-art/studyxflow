@@ -616,3 +616,51 @@ console.log(error);
 }
 
 }
+
+function showSavedNotes(){
+
+document.getElementById(
+"savedNotesSection"
+).style.display="block";
+
+let user = auth.currentUser;
+
+if(!user) return;
+
+db.collection("aiNotes")
+
+.where("uid","==",user.uid)
+
+.orderBy("createdAt","desc")
+
+.get()
+
+.then((snapshot)=>{
+
+let html = "";
+
+snapshot.forEach((doc)=>{
+
+let data = doc.data();
+
+html += `
+
+<div class="doubt">
+
+<h3>${data.topic}</h3>
+
+<p>${data.notes}</p>
+
+</div>
+
+`;
+
+});
+
+document.getElementById(
+"savedNotesList"
+).innerHTML = html;
+
+});
+
+}
