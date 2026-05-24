@@ -198,7 +198,7 @@ Study<span>X</span>Flow
   <div
     id="profileNotice"
     
-    onclick="open()">
+    onclick="openProfilePopup()">
     
     ⚠ Complete your profile to unlock AI features 🚀
   
@@ -232,7 +232,7 @@ Study<span>X</span>Flow
 
 </div>
 
-<div class="statCard">
+="statCard">
 
 <h3 id="doubtCount">0</h3>
 
@@ -240,7 +240,7 @@ Study<span>X</span>Flow
 
 </div>
 
-<div class="statCard">
+="statCard">
 
 <h3 id="notesCount">0</h3>
 
@@ -251,9 +251,9 @@ Study<span>X</span>Flow
 </div>
 </div>
 
-<div class="progressCard">
+="progressCard">
 
-<div class="progressTop">
+="progressTop">
 
 <h3 id="progressPercent">0%</h3>
 
@@ -261,7 +261,7 @@ Study<span>X</span>Flow
 
 </div>
 
-<div class="progressBar">
+="progressBar">
   
   <div
     class="progressFill"
@@ -388,20 +388,60 @@ Generate Notes
 <!-- PROFILE -->
 
 <div id="profileSection" style="display:none;">
-
-<div class="card">
-
-<h2>👤 Student Profile</h2>
-
-<p>Name: Sai</p>
-
-<p>Status: Active Learner 🚀</p>
-
-<button onclick="logoutUser()">
-  Logout
-  </button>
-
-</div>
+  
+  <div class="card">
+    
+    <h2>👤 Student Profile</h2>
+    
+    <div class="profileDetails">
+      
+      <p>
+        <b>Full Name:</b>
+        <span id="showFullName"></span>
+      </p>
+      
+      <p>
+        <b>Goal:</b>
+        <span id="showGoal"></span>
+      </p>
+      
+      <p>
+        <b>Dream College:</b>
+        <span id="showDreamCollege"></span>
+      </p>
+      
+      <p>
+        <b>Favorite Subject:</b>
+        <span id="showFavSubject"></span>
+      </p>
+      
+      <p>
+        <b>Weak Subject:</b>
+        <span id="showWeakSubject"></span>
+      </p>
+      
+      <p>
+        <b>Bio:</b>
+        <span id="showBio"></span>
+      </p>
+      
+      <button onclick="openProfilePopup()">
+        
+        Edit Profile
+      
+      </button>
+      
+      <br><br>
+      
+      <button onclick="logoutUser()">
+        
+        Logout
+      
+      </button>
+    
+    </div>
+  
+  </div>
 
 </div>
 
