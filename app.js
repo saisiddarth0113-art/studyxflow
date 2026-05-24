@@ -517,7 +517,7 @@ method:"POST",
 headers:{
 
 "Authorization":
-"Bearer YOUR_API_KEY",
+"Bearer " + OPENROUTER_API_KEY,
 
 "Content-Type":
 "application/json"
