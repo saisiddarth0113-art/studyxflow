@@ -358,9 +358,55 @@ setTimeout(()=>{
 
 function openProfilePopup(){
 
+let user = auth.currentUser;
+
+if(!user) return;
+
+db.collection("users")
+
+.doc(user.uid)
+
+.get()
+
+.then((doc)=>{
+
+let data = doc.data();
+
+document.getElementById(
+"fullName"
+).value =
+data.fullName || "";
+
+document.getElementById(
+"goal"
+).value =
+data.goal || "";
+
+document.getElementById(
+"dreamCollege"
+).value =
+data.dreamCollege || "";
+
+document.getElementById(
+"favSubject"
+).value =
+data.favSubject || "";
+
+document.getElementById(
+"weakSubject"
+).value =
+data.weakSubject || "";
+
+document.getElementById(
+"bio"
+).value =
+data.bio || "";
+
 document.getElementById(
 "profilePopup"
 ).style.display="flex";
+
+});
 
 }
 
