@@ -459,48 +459,50 @@ document.getElementById(
 ).innerHTML =
 
 "🤖 Generating AI Notes...";
-  
-  setTimeout(()=>{
-    
-    document.getElementById(
-      "notesResult"
-    ).innerHTML = `
-    
-    <h3>${topic}</h3>
-    
-    <p>
-    • Introduction about ${topic}
-    </p>
-    
-    <p>
-    • Important concepts of ${topic}
-    </p>
-    
-    <p>
-    • Key points and summary
-    </p>
-    
-    <p>
-    • Quick revision notes
-    </p>
-    
-    ;
-    
-    let user = auth.currentUser;
-    
-    if(user){
-    
-    db.collection("users")
-    
-    .doc(user.uid)
-    
-    .update({
-    
-    notesUploaded:
-    firebase.firestore.FieldValue.increment(1)
-    
-    });
-    
-    }
-    
-    },2000);
+
+setTimeout(()=>{
+
+document.getElementById(
+"notesResult"
+).innerHTML = `
+
+<h3>${topic}</h3>
+
+<p>
+• Introduction about ${topic}
+</p>
+
+<p>
+• Important concepts of ${topic}
+</p>
+
+<p>
+• Key points and summary
+</p>
+
+<p>
+• Quick revision notes
+</p>
+
+`;
+
+let user = auth.currentUser;
+
+if(user){
+
+db.collection("users")
+
+.doc(user.uid)
+
+.update({
+
+notesUploaded:
+firebase.firestore.FieldValue.increment(1)
+
+});
+
+}
+
+},2000);
+
+}
