@@ -583,14 +583,14 @@ notes;
 
 /* NOTES COUNT */
 
-let user =
+let currentUser =
 auth.currentUser;
 
-if(user){
+if(currentUser){
 
 db.collection("users")
 
-.doc(user.uid)
+.doc(currentUser.uid)
 
 .update({
 
