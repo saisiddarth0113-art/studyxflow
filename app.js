@@ -74,10 +74,58 @@ window.onload=function(){
         "streakCount"
       ).textContent =
         data.dailyStreak || 0;
+      
+      document.getElementById(
+        "doubtCount"
+      ).textContent =
+        data.doubtsAsked || 0;
+      
+      document.getElementById(
+        "notesCount"
+      ).textContent =
+        data.notesUploaded || 0;
     
     });
   
   }
+
+/* PROGRESS */
+
+let total = 6;
+
+let completed = 0;
+
+if(data.fullName)
+completed++;
+
+if(data.goal)
+completed++;
+
+if(data.dreamCollege)
+completed++;
+
+if(data.favSubject)
+completed++;
+
+if(data.weakSubject)
+completed++;
+
+if(data.bio)
+completed++;
+
+let progress = Math.floor(
+(completed / total) * 100
+);
+
+document.getElementById(
+"progressPercent"
+).textContent =
+progress + "%";
+
+document.getElementById(
+"progressFill"
+).style.width =
+progress + "%";
 
   /* FEEDBACK POPUP */
   
@@ -422,6 +470,23 @@ document.getElementById(
 `;
 
 },2000);
+
+}
+
+let user = auth.currentUser;
+
+if(user){
+
+db.collection("users")
+
+.doc(user.uid)
+
+.update({
+
+notesUploaded:
+firebase.firestore.FieldValue.increment(1)
+
+});
 
 }
 
