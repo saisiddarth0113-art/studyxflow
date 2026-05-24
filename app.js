@@ -485,7 +485,7 @@ document.getElementById(
 
 }
 
-function generateNotes(){
+async function generateNotes(){
 
 let topic =
 document.getElementById(
@@ -495,7 +495,6 @@ document.getElementById(
 if(topic.trim()==""){
 
 alert("Enter topic ❌");
-
 return;
 
 }
@@ -503,36 +502,89 @@ return;
 document.getElementById(
 "notesResult"
 ).innerHTML =
+"🤖 AI is generating notes...";
 
-"🤖 Generating AI Notes...";
+try{
 
-setTimeout(()=>{
+let response = await fetch(
+
+"https://openrouter.ai/api/v1/chat/completions",
+
+{
+
+method:"POST",
+
+headers:{
+
+"Authorization":
+"Bearer YOUR_API_KEY",
+
+"Content-Type":
+"application/json"
+
+},
+
+body:JSON.stringify({
+
+model:
+"mistralai/mistral-7b-instruct",
+
+messages:[
+
+{
+
+role:"user",
+
+content:
+
+`Generate easy study notes about ${topic}
+with headings, key points and summary.`
+
+}
+
+]
+
+})
+
+});
+
+let data =
+await response.json();
+
+let notes =
+data.choices[0]
+.message.content;
+  
+  let user = auth.currentUser;
+  
+  if(user){
+    
+    db.collection("aiNotes")
+      
+      .add({
+        
+        uid:user.uid,
+        
+        topic:topic,
+        
+        notes:notes,
+        
+        createdAt:
+          firebase.firestore.FieldValue.serverTimestamp()
+      
+      });
+  
+  }
 
 document.getElementById(
 "notesResult"
-).innerHTML = `
+).innerHTML =
+notes;
 
-<h3>${topic}</h3>
+/* NOTES COUNT */
 
-<p>
-• Introduction about ${topic}
-</p>
-
-<p>
-• Important concepts of ${topic}
-</p>
-
-<p>
-• Key points and summary
-</p>
-
-<p>
-• Quick revision notes
-</p>
-
-`;
-
-let user = auth.currentUser;
+let user =
+auth.currentUser;
 
 if(user){
 
@@ -549,6 +601,18 @@ firebase.firestore.FieldValue.increment(1)
 
 }
 
-},2000);
+}
+
+catch(error){
+
+document.getElementById(
+"notesResult"
+).innerHTML =
+
+"❌ Failed to generate notes";
+
+console.log(error);
+
+}
 
 }
