@@ -17,117 +17,96 @@ function openRegister(){
 
 }
 
-window.onload=function(){
+auth.onAuthStateChanged((user)=>{
 
-  let today =
-  new Date().toISOString().split("T")[0];
+if(user){
 
-  document.getElementById("dob")
-  .max = today;
+db.collection("users")
 
-  let user =
-  localStorage.getItem(
-    "studyxflowUser"
-  );
+.doc(user.uid)
 
-  if(user==="logged"){
+.get()
 
-    document.getElementById(
-      "registerScreen"
-    ).style.display="none";
+.then((doc)=>{
 
-    document.getElementById(
-      "welcomeScreen"
-    ).style.display="none";
+let data = doc.data();
 
-  }
+/* PROFILE NOTICE */
 
-  /* LOAD USER STATS */
+if(data.profileCompleted){
 
-  if(auth.currentUser){
+document.getElementById(
+"profileNotice"
+).style.display="none";
 
-    db.collection("users")
+} else {
 
-    .doc(auth.currentUser.uid)
+document.getElementById(
+"profileNotice"
+).style.display="block";
 
-    .get()
+}
 
-    .then((doc)=>{
-      
-      let data = doc.data();
-      
-      /* PROGRESS */
-      
-      let total = 6;
-      
-      let completed = 0;
-      
-      if(data.fullName)
-        completed++;
-      
-      if(data.goal)
-        completed++;
-      
-      if(data.dreamCollege)
-        completed++;
-      
-      if(data.favSubject)
-        completed++;
-      
-      if(data.weakSubject)
-        completed++;
-      
-      if(data.bio)
-        completed++;
-      
-      let progress = Math.floor(
-        (completed / total) * 100
-      );
-      
-      document.getElementById(
-        "progressPercent"
-      ).textContent =
-        progress + "%";
-      
-      document.getElementById(
-        "progressFill"
-      ).style.width =
-        progress + "%";
-      
-      
-      if(data.profileCompleted){
-        
-        document.getElementById(
-          "profileNotice"
-        ).style.display="none";
-      
-      } else {
-        
-        document.getElementById(
-          "profileNotice"
-        ).style.display="block";
-      
-      }
-      
-      document.getElementById(
-        "streakCount"
-      ).textContent =
-        data.dailyStreak || 0;
-      
-      document.getElementById(
-        "doubtCount"
-      ).textContent =
-        data.doubtsAsked || 0;
-      
-      document.getElementById(
-        "notesCount"
-      ).textContent =
-        data.notesUploaded || 0;
-    
-    });
-  
-  }
+/* STATS */
 
+document.getElementById(
+"streakCount"
+).textContent =
+data.dailyStreak || 0;
+
+document.getElementById(
+"doubtCount"
+).textContent =
+data.doubtsAsked || 0;
+
+document.getElementById(
+"notesCount"
+).textContent =
+data.notesUploaded || 0;
+
+/* PROGRESS */
+
+let total = 6;
+
+let completed = 0;
+
+if(data.fullName)
+completed++;
+
+if(data.goal)
+completed++;
+
+if(data.dreamCollege)
+completed++;
+
+if(data.favSubject)
+completed++;
+
+if(data.weakSubject)
+completed++;
+
+if(data.bio)
+completed++;
+
+let progress = Math.floor(
+(completed / total) * 100
+);
+
+document.getElementById(
+"progressPercent"
+).textContent =
+progress + "%";
+
+document.getElementById(
+"progressFill"
+).style.width =
+progress + "%";
+
+});
+
+}
+
+});
 
 
   /* FEEDBACK POPUP */
