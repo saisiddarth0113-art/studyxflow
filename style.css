@@ -639,14 +639,20 @@ overflow:hidden;
 }
 
 .progressFill{
-width:85%;
+
 height:100%;
+width:0%;
+border-radius:20px;
+
 background:linear-gradient(
 90deg,
-#00c6ff,
-#8b5cf6
+#00d9ff,
+#8b5cf6,
+#ff00ff
 );
-border-radius:20px;
+
+transition:0.5s;
+
 }
 
 .bottomNav{
