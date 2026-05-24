@@ -342,15 +342,10 @@ db.collection("users")
 .update({
 
 fullName,
-
 goal,
-
 dreamCollege,
-
 favSubject,
-
 weakSubject,
-
 bio,
 
 profileCompleted:true
@@ -363,7 +358,9 @@ document.getElementById(
 "profileNotice"
 ).style.display="none";
 
-closeProfilePopup();
+document.getElementById(
+"profilePopup"
+).style.display="none";
 
 });
 
