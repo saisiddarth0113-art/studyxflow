@@ -29,18 +29,6 @@ document.getElementById(
 "registerScreen"
 ).style.display="none";
 
-} else {
-
-document.getElementById(
-"welcomeScreen"
-).style.display="flex";
-
-}
-
-});
-
-if(user){
-
 db.collection("users")
 
 .doc(user.uid)
@@ -50,36 +38,38 @@ db.collection("users")
 .then((doc)=>{
 
 let data = doc.data();
-  
-  document.getElementById(
-    "showFullName"
-  ).textContent =
-    data.fullName || "";
-  
-  document.getElementById(
-    "showGoal"
-  ).textContent =
-    data.goal || "";
-  
-  document.getElementById(
-    "showDreamCollege"
-  ).textContent =
-    data.dreamCollege || "";
-  
-  document.getElementById(
-    "showFavSubject"
-  ).textContent =
-    data.favSubject || "";
-  
-  document.getElementById(
-    "showWeakSubject"
-  ).textContent =
-    data.weakSubject || "";
-  
-  document.getElementById(
-    "showBio"
-  ).textContent =
-    data.bio || "";
+
+/* PROFILE DETAILS */
+
+document.getElementById(
+"showFullName"
+).textContent =
+data.fullName || "";
+
+document.getElementById(
+"showGoal"
+).textContent =
+data.goal || "";
+
+document.getElementById(
+"showDreamCollege"
+).textContent =
+data.dreamCollege || "";
+
+document.getElementById(
+"showFavSubject"
+).textContent =
+data.favSubject || "";
+
+document.getElementById(
+"showWeakSubject"
+).textContent =
+data.weakSubject || "";
+
+document.getElementById(
+"showBio"
+).textContent =
+data.bio || "";
 
 /* PROFILE NOTICE */
 
@@ -154,10 +144,15 @@ progress + "%";
 
 });
 
+} else {
+
+document.getElementById(
+"welcomeScreen"
+).style.display="flex";
+
 }
 
 });
-
 
   /* FEEDBACK POPUP */
   
