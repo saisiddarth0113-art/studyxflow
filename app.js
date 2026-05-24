@@ -536,7 +536,6 @@ messages:[
 role:"user",
 
 content:
-
 `Generate easy study notes about ${topic}
 with headings, key points and summary.`
 
@@ -546,7 +545,9 @@ with headings, key points and summary.`
 
 })
 
-});
+}
+
+);
 
 let data =
 await response.json();
@@ -554,27 +555,28 @@ await response.json();
 let notes =
 data.choices[0]
 .message.content;
-  
-  let user = auth.currentUser;
-  
-  if(user){
-    
-    db.collection("aiNotes")
-      
-      .add({
-        
-        uid:user.uid,
-        
-        topic:topic,
-        
-        notes:notes,
-        
-        createdAt:
-          firebase.firestore.FieldValue.serverTimestamp()
-      
-      });
-  
-  }
+
+let user =
+auth.currentUser;
+
+if(user){
+
+db.collection("aiNotes")
+
+.add({
+
+uid:user.uid,
+
+topic:topic,
+
+notes:notes,
+
+createdAt:
+firebase.firestore.FieldValue.serverTimestamp()
+
+});
+
+}
 
 document.getElementById(
 "notesResult"
