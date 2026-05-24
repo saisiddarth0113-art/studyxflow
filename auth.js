@@ -104,6 +104,8 @@ function registerUser(){
           notesUploaded:0,
           
           dailyStreak:1
+
+          profileCompleted:false
         
         })
         
