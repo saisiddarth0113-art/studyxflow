@@ -21,6 +21,26 @@ auth.onAuthStateChanged((user)=>{
 
 if(user){
 
+document.getElementById(
+"welcomeScreen"
+).style.display="none";
+
+document.getElementById(
+"registerScreen"
+).style.display="none";
+
+} else {
+
+document.getElementById(
+"welcomeScreen"
+).style.display="flex";
+
+}
+
+});
+
+if(user){
+
 db.collection("users")
 
 .doc(user.uid)
@@ -414,59 +434,48 @@ document.getElementById(
 ).innerHTML =
 
 "🤖 Generating AI Notes...";
-
-setTimeout(()=>{
-
-document.getElementById(
-"notesResult"
-).innerHTML = `
-
-<h3>${topic}</h3>
-
-<p>
-
-• Introduction about ${topic}
-
-</p>
-
-<p>
-
-• Important concepts of ${topic}
-
-</p>
-
-<p>
-
-• Key points and summary
-
-</p>
-
-<p>
-
-• Quick revision notes
-
-</p>
-
-`;
-
-},2000);
-
-}
-
-let user = auth.currentUser;
-
-if(user){
-
-db.collection("users")
-
-.doc(user.uid)
-
-.update({
-
-notesUploaded:
-firebase.firestore.FieldValue.increment(1)
-
-});
-
-}
-
+  
+  setTimeout(()=>{
+    
+    document.getElementById(
+      "notesResult"
+    ).innerHTML = `
+    
+    <h3>${topic}</h3>
+    
+    <p>
+    • Introduction about ${topic}
+    </p>
+    
+    <p>
+    • Important concepts of ${topic}
+    </p>
+    
+    <p>
+    • Key points and summary
+    </p>
+    
+    <p>
+    • Quick revision notes
+    </p>
+    
+    ;
+    
+    let user = auth.currentUser;
+    
+    if(user){
+    
+    db.collection("users")
+    
+    .doc(user.uid)
+    
+    .update({
+    
+    notesUploaded:
+    firebase.firestore.FieldValue.increment(1)
+    
+    });
+    
+    }
+    
+    },2000);
