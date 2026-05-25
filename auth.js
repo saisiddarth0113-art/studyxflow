@@ -33,15 +33,18 @@ function switchMode(){
 }
 
 function registerUser(){
-
+  
+  
   let username =
-  document.getElementById("username").value;
+  document.getElementById("username")
+  .value.trim();
 
   let dob =
   document.getElementById("dob").value;
 
   let email =
   document.getElementById("email").value;
+  .value.trim();
 
   let password =
   document.getElementById("password").value;
