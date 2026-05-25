@@ -1,3 +1,3 @@
-const OPENROUTER_API_KEY =
+const HF_API_KEY =
 
 "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";
