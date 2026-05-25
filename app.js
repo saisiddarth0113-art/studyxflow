@@ -527,7 +527,7 @@ headers:{
 body:JSON.stringify({
   
 model:
-"google/gemma-2-9b-it:free",
+"google/gemma-3-27b-it:free",
 
 messages:[
 
