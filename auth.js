@@ -39,7 +39,8 @@ function registerUser(){
   .value.trim();
 
   let dob =
-  document.getElementById("dob").value;
+  document.getElementById("dob")
+  .value;
 
   let email =
   document.getElementById("email")
@@ -58,6 +59,7 @@ function registerUser(){
   if(selectedDate > today){
 
     alert("Invalid Date Of Birth ❌");
+
     return;
 
   }
@@ -73,7 +75,9 @@ function registerUser(){
   }
 
   db.collection("users")
+
   .where("username", "==", username)
+
   .get()
 
   .then((querySnapshot)=>{
@@ -81,6 +85,7 @@ function registerUser(){
     if(!querySnapshot.empty){
 
       alert("Username already taken ❌");
+
       return;
 
     }
@@ -92,27 +97,30 @@ function registerUser(){
 
     .then((userCredential)=>{
 
-      let user = userCredential.user;
-      
-      db.collection("users")
-        .doc(user.uid)
-        .set({
-          
-          username:username,
-          
-          email:email,
-          
-          doubtsAsked:0,
-          
-          notesUploaded:0,
-          
-          dailyStreak:1,
+      let user =
+      userCredential.user;
 
-          profileCompleted:false
-        
-        })
-        
-        .then(()=>{
+      db.collection("users")
+
+      .doc(user.uid)
+
+      .set({
+
+        username:username,
+
+        email:email,
+
+        doubtsAsked:0,
+
+        notesUploaded:0,
+
+        dailyStreak:1,
+
+        profileCompleted:false
+
+      })
+
+      .then(()=>{
 
         localStorage.setItem(
           "studyxflowUser",
@@ -136,7 +144,6 @@ function registerUser(){
   });
 
 }
-
 function loginUser(){
 
   let loginValue =
