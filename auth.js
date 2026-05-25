@@ -34,7 +34,6 @@ function switchMode(){
 
 function registerUser(){
   
-  
   let username =
   document.getElementById("username")
   .value.trim();
@@ -43,11 +42,12 @@ function registerUser(){
   document.getElementById("dob").value;
 
   let email =
-  document.getElementById("email").value;
+  document.getElementById("email")
   .value.trim();
 
   let password =
-  document.getElementById("password").value;
+  document.getElementById("password")
+  .value.trim();
 
   let selectedDate =
   new Date(dob);
