@@ -1,0 +1,3 @@
+const OPENROUTER_API_KEY =
+
+"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";
