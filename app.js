@@ -488,6 +488,7 @@ document.getElementById(
 async function generateNotes(){
 
 let topic =
+
 document.getElementById(
 "notesTopic"
 ).value;
@@ -495,6 +496,7 @@ document.getElementById(
 if(topic.trim()==""){
 
 alert("Enter topic ❌");
+
 return;
 
 }
@@ -502,13 +504,14 @@ return;
 document.getElementById(
 "notesResult"
 ).innerHTML =
+
 "🤖 AI is generating notes...";
 
 try{
 
 let response = await fetch(
 
-"https://openrouter.ai/api/v1/chat/completions",
+"https://api-inference.huggingface.co/models/google/flan-t5-large",
 
 {
 
@@ -517,7 +520,7 @@ method:"POST",
 headers:{
 
 "Authorization":
-"Bearer " + OPENROUTER_API_KEY,
+"Bearer " + HF_API_KEY,
 
 "Content-Type":
 "application/json"
@@ -525,23 +528,9 @@ headers:{
 },
 
 body:JSON.stringify({
-  
-model:
-"meta-llama/llama-3-8b-instruct:free",
 
-messages:[
-
-{
-
-role:"user",
-
-content:
-`Generate easy study notes about ${topic}
-with headings, key points and summary.`
-
-}
-
-]
+inputs:
+`Generate easy study notes about ${topic}`
 
 })
 
@@ -552,58 +541,13 @@ with headings, key points and summary.`
 let data =
 await response.json();
 
-  console.log(data);
-
 let notes =
-data.choices[0]
-.message.content;
-
-let user =
-auth.currentUser;
-
-if(user){
-
-db.collection("aiNotes")
-
-.add({
-
-uid:user.uid,
-
-topic:topic,
-
-notes:notes,
-
-createdAt:
-firebase.firestore.FieldValue.serverTimestamp()
-
-});
-
-}
+data[0].generated_text;
 
 document.getElementById(
 "notesResult"
 ).innerHTML =
 notes;
-
-/* NOTES COUNT */
-
-let currentUser =
-auth.currentUser;
-
-if(currentUser){
-
-db.collection("users")
-
-.doc(currentUser.uid)
-
-.update({
-
-notesUploaded:
-firebase.firestore.FieldValue.increment(1)
-
-});
-
-}
 
 }
 
