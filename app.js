@@ -527,7 +527,7 @@ headers:{
 body:JSON.stringify({
 
 model:
-"mistralai/mistral-7b-instruct",
+"openai/gpt-3.5-turbo",
 
 messages:[
 
@@ -551,6 +551,8 @@ with headings, key points and summary.`
 
 let data =
 await response.json();
+
+  console.log(data);
 
 let notes =
 data.choices[0]
